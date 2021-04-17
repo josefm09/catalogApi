@@ -17,10 +17,48 @@ exports.post = function(req,res){
   });
 };
 
-exports.get = function(req,res){
+exports.get = function(res){
 
-  File.findOne({
-    product_id: req.productId
+  Product.find({}, function(err, products) {
+    if (err) {
+      return res.status(500).json({ message: err });
+    }
+
+    return res.json(products);
+  });
+};
+
+exports.put = function(req,res){
+  var data = req.body;
+
+  Product.findOneAndUpdate({product_id: data.product_id}, data, function(err, products) {
+    if (err) {
+      return res.status(500).json({ message: err });
+    }
+
+    return res.json(products);
+  });
+
+  return res.json(doc);
+};
+
+exports.getOne = function(req,res){
+
+  Product.findOne({
+    product_id: req.params['id']
+  }, function(err, product) {
+    if (err) {
+      return res.status(500).json({ message: err });
+    }
+
+    return res.json(product);
+  });
+};
+
+exports.delete = function(req,res){
+
+  Product.deleteOne({
+    product_id: req.params['id']
   }, function(err, product) {
     if (err) {
       return res.status(500).json({ message: err });

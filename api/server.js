@@ -23,7 +23,8 @@ const option = {
     keepAlive: true,
     useNewUrlParser: true,
     useUnifiedTopology: true,
-    useCreateIndex: true
+    useCreateIndex: true,
+    useFindAndModify: false
 };
 
 const mongoURI = config.MONGODB_URI;

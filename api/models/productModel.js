@@ -1,8 +1,10 @@
 'use strict';
 
 var mongoose = require('mongoose'),
+  autoIncrement = require('mongoose-auto-increment'),
   Schema = mongoose.Schema;
 
+autoIncrement.initialize(mongoose.connection);
 /**
  * Modelo de los productos
  */
@@ -33,5 +35,5 @@ var ProductSchema = new Schema({
   }
 });
 
-ProductSchema.plugin('AutoIncrement', { inc_field: "product_id" });
+ProductSchema.plugin(autoIncrement.plugin, { model: 'Product', field: 'product_id' });
 mongoose.model('Product', ProductSchema);
