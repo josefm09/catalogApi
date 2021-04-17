@@ -1,0 +1,23 @@
+{
+  "name": "filesev",
+  "version": "1.0.0",
+  "description": "proyecto evaluacion de coppel",
+  "main": "index.js",
+  "dependencies": {
+    "axios": "^0.21.1",
+    "bcrypt": "^5.0.1",
+    "bcryptjs": "^2.4.3",
+    "cors": "^2.8.5",
+    "express": "^4.17.1",
+    "jsonwebtoken": "^8.5.1",
+    "mongoose": "^5.11.19",
+    "save": "^2.4.0"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node api/server.js"
+  },
+  "author": "José Carlos Flores Morán",
+  "license": "ISC"
+}
