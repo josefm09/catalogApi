@@ -29,6 +29,11 @@ let ProductSchema = new Schema({
     trim: true,
     required: true
   },
+  sellTimes: {
+    type: Number,
+    trim: true,
+    default: 0
+  },
   created: {
     type: Date,
     default: Date.now

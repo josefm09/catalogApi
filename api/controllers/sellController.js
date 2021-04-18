@@ -44,7 +44,7 @@ exports.get = function(req, res){
 function runUpdate(obj) {
   return new Promise((resolve, reject) => {
 
-    Product.findOneAndUpdate({product_id: obj.idProduct, stock:{$gte: 1}}, {$inc: {stock: - (obj.quantity)}}, { new: true})
+    Product.findOneAndUpdate({product_id: obj.idProduct, stock:{$gte: 1}}, {$inc: {stock: - (obj.quantity), sellTimes: obj.quantity}}, { new: true})
       .then(result => {
         if(result.stock < 0){
           session.abortTransaction();
