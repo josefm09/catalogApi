@@ -1,30 +1,39 @@
 'use strict';
 
-var mongoose = require('mongoose'),
+let mongoose = require('mongoose'),
   Schema = mongoose.Schema;
+
+/**
+ * Modelo de los productos en la orden
+ */
+let ProductArrSchema = new Schema({
+  idProduct: Number,
+  quantity: Number
+});
 
 /**
  * Modelo de las ventas
  */
-var SellSchema = new Schema({
+let SellSchema = new Schema({
   idClient: {
     type: Number,
     trim: true,
     required: true
   },
-  idProduct: {
+  total: {
     type: Number,
     trim: true,
     required: true
   },
-  total: {
-    type: String,
-    trim: true
-  },
-  fileText: {
-    type: Schema.Types.Mixed,
+  payment: {
+    type: Number,
     trim: true,
     required: true
+  },
+  products: {
+    type: [ProductArrSchema],
+    trim: true,
+    default: []
   },
   created: {
     type: Date,

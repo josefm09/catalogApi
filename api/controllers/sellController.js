@@ -1,23 +1,36 @@
 'use strict';
 
-var mongoose = require('mongoose'),
-  Sell = mongoose.model('Sell');
+let mongoose = require('mongoose'),
+  Sell = mongoose.model('Sell'),
+  Product = mongoose.model('Product');
 
-exports.post = function(req,res){
-  var newSell = new Sell(req.body);
+exports.post = async function(req,res){
+  const session = await mongoose.startSession();
+  let newSell = new Sell(req.body);
 
-  newSell.save(function(err, sell) {
+  session.startTransaction();
+ 
+  newSell.save(async function(err, sell) {
     if (err) {
       return res.status(400).send({
         message: err
       });
-    } else {;
-      return res.json(sell);
+    } else {
+      let promiseArr = [];
+      sell.products.forEach(obj => {
+        promiseArr.push(runUpdate(obj));
+        Promise.all(promiseArr)
+        .then((promRes) => res.json({ message: "Venta realizada correctamente" }))
+        .catch(promErr => res.status(500).json({ message: "Existencia excedida" + promErr }))
+      });
     }
   });
+
+  session.endSession();
+  
 };
 
-exports.get = function(res){
+exports.get = function(req, res){
 
   Sell.find({}, function(err, sells) {
     if (err) {
@@ -27,3 +40,18 @@ exports.get = function(res){
     return res.json(sells);
   });
 };
+
+function runUpdate(obj) {
+  return new Promise((resolve, reject) => {
+
+    Product.findOneAndUpdate({product_id: obj.idProduct, stock:{$gte: 1}}, {$inc: {stock: - (obj.quantity)}}, { new: true})
+      .then(result => {
+        if(result.stock < 0){
+          session.abortTransaction();
+        } else {
+          resolve()
+        }
+      })
+      .catch(err => reject(err))
+  });
+}

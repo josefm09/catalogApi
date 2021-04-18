@@ -2,7 +2,7 @@
 
 const config = require('./config');
 
-var express = require('express'),
+let express = require('express'),
   app = express(),
   port = config.PORT,
   cors = require('cors'),
@@ -49,7 +49,7 @@ app.use(function(req, res, next) {
     next();
   }
 });
-var routes = require('./route/routes');
+let routes = require('./route/routes');
 routes(app);
 
 app.use(function(req, res) {

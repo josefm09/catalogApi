@@ -1,10 +1,10 @@
 'use strict';
 
-var mongoose = require('mongoose'),
+let mongoose = require('mongoose'),
   Product = mongoose.model('Product');
 
 exports.post = function(req,res){
-  var newProduct = new Product(req.body);
+  let newProduct = new Product(req.body);
 
   newProduct.save(function(err, product) {
     if (err) {
@@ -17,21 +17,21 @@ exports.post = function(req,res){
   });
 };
 
-exports.get = function(res){
+exports.get = function(req, res){
 
   Product.find({}, function(err, products) {
     if (err) {
       return res.status(500).json({ message: err });
+    } else {
+      return res.json(products);
     }
-
-    return res.json(products);
   });
 };
 
 exports.put = function(req,res){
-  var data = req.body;
+  let data = req.body;
 
-  Product.findOneAndUpdate({product_id: data.product_id}, data, function(err, products) {
+  Product.findOneAndUpdate({product_id: data.product_id}, data, {new: true}, function(err, products) {
     if (err) {
       return res.status(500).json({ message: err });
     }
@@ -39,7 +39,6 @@ exports.put = function(req,res){
     return res.json(products);
   });
 
-  return res.json(doc);
 };
 
 exports.getOne = function(req,res){

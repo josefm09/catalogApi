@@ -1,6 +1,6 @@
 'use strict';
 
-var mongoose = require('mongoose'),
+let mongoose = require('mongoose'),
   autoIncrement = require('mongoose-auto-increment'),
   Schema = mongoose.Schema;
 
@@ -8,7 +8,7 @@ autoIncrement.initialize(mongoose.connection);
 /**
  * Modelo de los productos
  */
-var ProductSchema = new Schema({
+let ProductSchema = new Schema({
   name: {
     type: String,
     trim: true,

@@ -1,13 +1,13 @@
 'use strict';
 
-var mongoose = require('mongoose'),
+let mongoose = require('mongoose'),
   bcrypt = require('bcryptjs'),
   Schema = mongoose.Schema;
 
 /**
  * Modelo del usuario el hash está en HS256
  */
-var UserSchema = new Schema({
+let UserSchema = new Schema({
   fullName: {
     type: String,
     trim: true,
