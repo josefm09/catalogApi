@@ -7,7 +7,7 @@ let mongoose = require('mongoose'),
  * Modelo de los productos en la orden
  */
 let ProductArrSchema = new Schema({
-  idProduct: Number,
+  product_id: Number,
   quantity: Number
 });
 
