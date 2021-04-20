@@ -12,6 +12,8 @@ module.exports = function(app) {
         .post(productHandlers.post);
     app.route('/product')
         .get(productHandlers.get);
+    app.route('/product/mostSelled')
+        .get(productHandlers.getMostSelled);
     app.route('/product/:id')
         .get(productHandlers.getOne);
     app.route('/product')

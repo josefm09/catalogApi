@@ -8,6 +8,7 @@ let mongoose = require('mongoose'),
  */
 let ProductArrSchema = new Schema({
   product_id: Number,
+  name: String,
   quantity: Number
 });
 

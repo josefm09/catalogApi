@@ -66,3 +66,13 @@ exports.delete = function(req,res){
     return res.json(product);
   });
 };
+
+exports.getMostSelled = function(req,res){
+  Product.find({}).sort({ sellTimes : -1 }).exec(function(err, products) {
+    if (err) {
+      return res.status(500).json({ message: err });
+    } else {
+      return res.json(products);
+    }
+  });
+}
